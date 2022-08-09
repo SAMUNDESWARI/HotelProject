@@ -5,7 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\hotelBussiness\hotelBussiness.csproj" />
+    <ProjectReference Include="..\hotelModels\hotelModels.csproj" />
+    <ProjectReference Include="..\hotelRepository\hotelRepository.csproj" />
+    <ProjectReference Include="..\hotelUtilities\hotelUtilities.csproj" />
   </ItemGroup>
 
 </Project>

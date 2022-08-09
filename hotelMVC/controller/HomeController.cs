@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using hotelBussiness.Interface;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,17 @@ namespace hotelMVC.controller
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ILogger<HomeController> _logger;
+
+        private IhotelBusiness _hotelBusiness;
+
+        public HomeController(IhotelBusiness hotelBusiness)
         {
+            _hotelBusiness = hotelBusiness; 
+        }
+        public async Task<IActionResult> Index()
+        {
+            var Cust = await _hotelBusiness.getallcust();
             return View();
         }
     }
