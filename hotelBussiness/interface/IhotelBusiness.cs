@@ -15,5 +15,7 @@ namespace hotelBussiness.Interface
 
         Task<List<hotelInfo>> gethotel(string City);
         Task<List<hotelInfo>> getallhotel();
+        Task<customerVM> postcustinfo(customerVM cust);
+        Task<List<customerVM>> getallcust();
     }
 }

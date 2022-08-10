@@ -1,4 +1,5 @@
 ﻿using hotelBussiness.Interface;
+using hotelModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,11 +28,27 @@ namespace hotelAPI.Controllers
             return Ok(car);
         }
 
-        [HttpGet]
+        [HttpGet("hote")]
         public async Task<IActionResult> Gethotel()
         {
             var car = await _hotelBusiness.getallhotel();
             return Ok(car);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> savecustinfo(customerVM cust)
+        {
+            var cuts = await _hotelBusiness.postcustinfo(cust);
+            return Ok(cuts);
+        }
+
+        [HttpGet("cust")]
+        public async Task<IActionResult> getallcust()
+        {
+            var cust = await _hotelBusiness.getallcust();
+            return Ok(cust);
+        }
+
+
     }
 }

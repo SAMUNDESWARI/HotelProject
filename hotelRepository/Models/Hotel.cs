@@ -23,6 +23,9 @@ namespace hotelRepository.Models
         public int? NumRooms { get; set; }
         public string PhoneNo { get; set; }
         public decimal? StarRating { get; set; }
+        public decimal? Price { get; set; }
+        public string AcNonAc { get; set; }
+        public string ClassName { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }

@@ -17,5 +17,8 @@ namespace hotelModels
         public int? NumRooms { get; set; }
         public string PhoneNo { get; set; }
         public decimal? StarRating { get; set; }
+        public decimal? Price { get; set; }
+        public string AcNonAc { get; set; }
+        public string ClassName { get; set; }
     }
 }

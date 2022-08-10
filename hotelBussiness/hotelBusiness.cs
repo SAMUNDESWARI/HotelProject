@@ -23,7 +23,12 @@ namespace hotelBussiness
             _mapper = mapper;
         }
 
-      
+        public async Task<List<customerVM>> getallcust()
+        {
+            var list2 = await _hotelRepository.getallcust();
+            return _mapper.Map<List<customerVM>>(list2);
+        }
+
         public async Task<List<hotelInfo>> getallhotel()
         {
             var list1 = await _hotelRepository.getallhotel();
@@ -34,6 +39,12 @@ namespace hotelBussiness
         {
            var list1 = await _hotelRepository.gethotel(City);
             return _mapper.Map<List<hotelInfo>>(list1);
+        }
+
+        public async Task<customerVM> postcustinfo(customerVM cust)
+        {
+            var result = await _hotelRepository.postcustinfo(_mapper.Map<CustInfo>(cust));
+            return _mapper.Map<customerVM>(result);
         }
     }
 }

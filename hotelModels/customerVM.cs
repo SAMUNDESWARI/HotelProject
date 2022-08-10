@@ -12,6 +12,6 @@ namespace hotelModels
         public string Custfname { get; set; }
         public string Custlname { get; set; }
         public string Address { get; set; }
-        public bool? Status { get; set; }
+  
     }
 }

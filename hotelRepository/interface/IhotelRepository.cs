@@ -12,5 +12,8 @@ namespace hotelRepository.Interface
       
         Task<List<Hotel>> gethotel(string City);
         Task<List<Hotel>> getallhotel();
+
+        Task<CustInfo> postcustinfo(CustInfo cust);
+        Task<List<CustInfo>> getallcust();
     }
 }

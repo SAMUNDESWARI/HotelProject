@@ -1,15 +1,13 @@
 ﻿using hotelRepository.Interface;
 using hotelRepository.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace hotelRepository
 {
-   public class hotellRepository : IhotelRepository
+    public class hotellRepository : IhotelRepository
     {
         private readonly hotel_managementContext _context;
 
@@ -19,7 +17,11 @@ namespace hotelRepository
 
         }
 
-     
+        public async Task<List<CustInfo>> getallcust()
+        {
+            return await _context.CustInfos.ToListAsync();
+        }
+
         public async Task<List<Hotel>> getallhotel()
         {
             return await _context.Hotels.ToListAsync();
@@ -28,6 +30,13 @@ namespace hotelRepository
         public async Task<List<Hotel>> gethotel(string City)
         {
             return await _context.Hotels.Where(x => x.City == City).ToListAsync();
+        }
+
+        public async Task<CustInfo> postcustinfo(CustInfo cust)
+        {
+            var result = await _context.CustInfos.AddAsync(cust);
+           await _context.SaveChangesAsync();
+            return result.Entity;
         }
     }
 }

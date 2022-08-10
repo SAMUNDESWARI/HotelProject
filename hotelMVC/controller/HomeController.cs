@@ -18,10 +18,6 @@ namespace hotelMVC.controller
         {
             _hotelBusiness = hotelBusiness; 
         }
-        public async Task<IActionResult> Index()
-        {
-            var Cust = await _hotelBusiness.getallcust();
-            return View();
-        }
+      
     }
 }
