@@ -63,8 +63,6 @@ namespace hotelAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-    
 
             app.UseAuthorization();
 

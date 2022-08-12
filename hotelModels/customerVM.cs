@@ -11,7 +11,7 @@ namespace hotelModels
         public int CustomerId { get; set; }
         public string Custfname { get; set; }
         public string Custlname { get; set; }
-        public string EmailAddress { get; set; }
-
+        public string Address { get; set; }
+  
     }
 }
