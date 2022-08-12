@@ -7,11 +7,6 @@ namespace hotelRepository.Models
 {
     public partial class Employee
     {
-        public Employee()
-        {
-            Transactios = new HashSet<Transactio>();
-        }
-
         public int EmployeeId { get; set; }
         public string Fname { get; set; }
         public string Lname { get; set; }
@@ -21,8 +16,5 @@ namespace hotelRepository.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public int? HotelCode { get; set; }
-
-        public virtual Hotel HotelCodeNavigation { get; set; }
-        public virtual ICollection<Transactio> Transactios { get; set; }
     }
 }

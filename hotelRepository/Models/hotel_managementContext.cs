@@ -20,10 +20,8 @@ namespace hotelRepository.Models
         public virtual DbSet<CustInfo> CustInfos { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
-        public virtual DbSet<Payment> Payments { get; set; }
-        public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
-        public virtual DbSet<Transactio> Transactios { get; set; }
+        public virtual DbSet<RoomInformation> RoomInformations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,16 +37,11 @@ namespace hotelRepository.Models
             modelBuilder.Entity<CustInfo>(entity =>
             {
                 entity.HasKey(e => e.CustomerId)
-                    .HasName("PK__Cust_Inf__CD64CFDDAA29EEA8");
+                    .HasName("PK__Cust_Inf__CD64CFDD2C9B4BC9");
 
                 entity.ToTable("Cust_Info");
 
                 entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
-
-                entity.Property(e => e.Address)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .HasColumnName("address");
 
                 entity.Property(e => e.Custfname)
                     .IsRequired()
@@ -62,7 +55,9 @@ namespace hotelRepository.Models
                     .IsUnicode(false)
                     .HasColumnName("custlname");
 
-                entity.Property(e => e.Status).HasColumnName("status");
+                entity.Property(e => e.EmailAddress)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -105,29 +100,23 @@ namespace hotelRepository.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("username");
-
-                entity.HasOne(d => d.HotelCodeNavigation)
-                    .WithMany(p => p.Employees)
-                    .HasForeignKey(d => d.HotelCode)
-                    .HasConstraintName("FK__Employees__Hotel__503BEA1C");
             });
 
             modelBuilder.Entity<Hotel>(entity =>
             {
                 entity.HasKey(e => e.HotelCode)
-                    .HasName("PK__Hotel__175CAD59AF1971FA");
+                    .HasName("PK__Hotel__175CAD596527B1AF");
 
                 entity.ToTable("Hotel");
 
                 entity.Property(e => e.HotelCode).ValueGeneratedNever();
 
-                entity.Property(e => e.AcNonAc)
-                    .HasMaxLength(30)
-                    .IsUnicode(false)
-                    .HasColumnName("AC_NonAC");
-
                 entity.Property(e => e.Address)
                     .HasMaxLength(60)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Availability)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.City)
@@ -135,9 +124,8 @@ namespace hotelRepository.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.ClassName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("Class_name");
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Country)
                     .HasMaxLength(60)
@@ -147,56 +135,16 @@ namespace hotelRepository.Models
                     .HasMaxLength(60)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Image)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("image");
+
                 entity.Property(e => e.PhoneNo)
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Price)
-                    .HasColumnType("money")
-                    .HasColumnName("price");
-
                 entity.Property(e => e.StarRating).HasColumnType("decimal(18, 0)");
-            });
-
-            modelBuilder.Entity<Payment>(entity =>
-            {
-                entity.Property(e => e.PaymentId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("payment_ID");
-
-                entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
-
-                entity.Property(e => e.PaymentDate)
-                    .HasColumnType("date")
-                    .HasColumnName("payment_date");
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Payments__custom__25518C17");
-            });
-
-            modelBuilder.Entity<Report>(entity =>
-            {
-                entity.Property(e => e.ReportId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("report_ID");
-
-                entity.Property(e => e.Date)
-                    .HasColumnType("date")
-                    .HasColumnName("date");
-
-                entity.Property(e => e.Information)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("information");
-
-                entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
-
-                entity.HasOne(d => d.Transaction)
-                    .WithMany(p => p.Reports)
-                    .HasForeignKey(d => d.TransactionId)
-                    .HasConstraintName("FK_Reports_Transactio");
             });
 
             modelBuilder.Entity<Reservation>(entity =>
@@ -207,15 +155,17 @@ namespace hotelRepository.Models
                     .ValueGeneratedNever()
                     .HasColumnName("reservation_ID");
 
+                entity.Property(e => e.Amount).HasColumnType("money");
+
+                entity.Property(e => e.CheckIn)
+                    .HasColumnType("date")
+                    .HasColumnName("Check_IN");
+
+                entity.Property(e => e.CheckOut)
+                    .HasColumnType("date")
+                    .HasColumnName("Check_Out");
+
                 entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
-
-                entity.Property(e => e.DateIn)
-                    .HasColumnType("date")
-                    .HasColumnName("date_in");
-
-                entity.Property(e => e.DateOut)
-                    .HasColumnType("date")
-                    .HasColumnName("date_out");
 
                 entity.Property(e => e.DateRange).HasColumnName("date_range");
 
@@ -223,69 +173,29 @@ namespace hotelRepository.Models
                     .HasColumnType("date")
                     .HasColumnName("reservation_date");
 
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Reservati__custo__4D5F7D71");
-
-                entity.HasOne(d => d.HotelCodeNavigation)
-                    .WithMany(p => p.Reservations)
-                    .HasForeignKey(d => d.HotelCode)
-                    .HasConstraintName("FK__Reservati__Hotel__4F47C5E3");
+                entity.Property(e => e.RoomId).HasColumnName("room_ID");
             });
 
-            modelBuilder.Entity<Transactio>(entity =>
+            modelBuilder.Entity<RoomInformation>(entity =>
             {
-                entity.HasKey(e => e.TransactionId)
-                    .HasName("PK__Transact__85C90537B89E3FC0");
+                entity.HasKey(e => e.RoomId)
+                    .HasName("PK__Room_Inf__19645EB20C56A95E");
 
-                entity.ToTable("Transactio");
+                entity.ToTable("Room_Information");
 
-                entity.Property(e => e.TransactionId)
+                entity.Property(e => e.RoomId)
                     .ValueGeneratedNever()
-                    .HasColumnName("transaction_ID");
+                    .HasColumnName("room_ID");
 
-                entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
+                entity.Property(e => e.NumberOfRooms).HasColumnName("Number_of_rooms");
 
-                entity.Property(e => e.EmployeeId).HasColumnName("employee_ID");
+                entity.Property(e => e.Price)
+                    .HasColumnType("money")
+                    .HasColumnName("price");
 
-                entity.Property(e => e.PaymentId).HasColumnName("payment_ID");
-
-                entity.Property(e => e.ReservationId).HasColumnName("reservation_ID");
-
-                entity.Property(e => e.TransactionDate)
-                    .HasColumnType("date")
-                    .HasColumnName("transaction_date");
-
-                entity.Property(e => e.TransactionName)
+                entity.Property(e => e.RoomType)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("transaction_name");
-
-                entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.Transactios)
-                    .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Transacti__custo__2739D489");
-
-                entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.Transactios)
-                    .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK__Transacti__emplo__29221CFB");
-
-                entity.HasOne(d => d.HotelCodeNavigation)
-                    .WithMany(p => p.Transactios)
-                    .HasForeignKey(d => d.HotelCode)
-                    .HasConstraintName("FK_Transactio_Hotel");
-
-                entity.HasOne(d => d.Payment)
-                    .WithMany(p => p.Transactios)
-                    .HasForeignKey(d => d.PaymentId)
-                    .HasConstraintName("FK__Transacti__payme__282DF8C2");
-
-                entity.HasOne(d => d.Reservation)
-                    .WithMany(p => p.Transactios)
-                    .HasForeignKey(d => d.ReservationId)
-                    .HasConstraintName("FK__Transacti__reser__4E53A1AA");
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

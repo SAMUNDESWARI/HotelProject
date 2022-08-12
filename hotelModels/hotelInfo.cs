@@ -14,11 +14,10 @@ namespace hotelModels
         public int? Postcode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public int? NumRooms { get; set; }
         public string PhoneNo { get; set; }
         public decimal? StarRating { get; set; }
-        public decimal? Price { get; set; }
-        public string AcNonAc { get; set; }
         public string ClassName { get; set; }
+        public string Availability { get; set; }
+        public string Image { get; set; }
     }
 }
