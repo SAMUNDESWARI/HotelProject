@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace hotelRepository.Models
 {
-    public partial class hotel_managementContext : DbContext
+    public partial class hotell_managementContext : DbContext
     {
-        public hotel_managementContext()
+        public hotell_managementContext()
         {
         }
 
-        public hotel_managementContext(DbContextOptions<hotel_managementContext> options)
+        public hotell_managementContext(DbContextOptions<hotell_managementContext> options)
             : base(options)
         {
         }
@@ -28,7 +28,7 @@ namespace hotelRepository.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source =localhost;Initial Catalog=hotel_management; Integrated Security=true");
+                optionsBuilder.UseSqlServer("Data Source =localhost;Initial Catalog=hotell_management; Integrated Security=true");
             }
         }
 
@@ -115,10 +115,6 @@ namespace hotelRepository.Models
                     .HasMaxLength(60)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Availability)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.City)
                     .HasMaxLength(60)
                     .IsUnicode(false);
@@ -179,13 +175,17 @@ namespace hotelRepository.Models
             modelBuilder.Entity<RoomInformation>(entity =>
             {
                 entity.HasKey(e => e.RoomId)
-                    .HasName("PK__Room_Inf__19645EB20C56A95E");
+                    .HasName("PK__Room_Inf__19645EB22F90509F");
 
                 entity.ToTable("Room_Information");
 
                 entity.Property(e => e.RoomId)
                     .ValueGeneratedNever()
                     .HasColumnName("room_ID");
+
+                entity.Property(e => e.Availability)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.NumberOfRooms).HasColumnName("Number_of_rooms");
 
@@ -196,6 +196,11 @@ namespace hotelRepository.Models
                 entity.Property(e => e.RoomType)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.HotelCodeNavigation)
+                    .WithMany(p => p.RoomInformations)
+                    .HasForeignKey(d => d.HotelCode)
+                    .HasConstraintName("FK_Room_Information_Hotel");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -11,5 +11,9 @@ namespace hotelRepository.Models
         public int? NumberOfRooms { get; set; }
         public string RoomType { get; set; }
         public decimal? Price { get; set; }
+        public int? HotelCode { get; set; }
+        public string Availability { get; set; }
+
+        public virtual Hotel HotelCodeNavigation { get; set; }
     }
 }

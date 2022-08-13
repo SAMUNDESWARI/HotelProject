@@ -9,9 +9,9 @@ namespace hotelRepository
 {
     public class hotellRepository : IhotelRepository
     {
-        private readonly hotel_managementContext _context;
+        private readonly hotell_managementContext _context;
 
-        public hotellRepository(hotel_managementContext context)
+        public hotellRepository(hotell_managementContext context)
         {
             _context = context;
 
@@ -29,7 +29,8 @@ namespace hotelRepository
 
         public async Task<List<Hotel>> gethotel(string City)
         {
-            return await _context.Hotels.Where(x => x.City == City).ToListAsync();
+            return await _context.Hotels.ToListAsync();
+           
         }
 
         public async Task<CustInfo> postcustinfo(CustInfo cust)

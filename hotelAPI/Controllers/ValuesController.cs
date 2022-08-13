@@ -48,7 +48,7 @@ namespace hotelAPI.Controllers
             var cust = await _hotelBusiness.getallcust();
             return Ok(cust);
         }
-
+        
 
     }
 }

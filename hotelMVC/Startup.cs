@@ -30,7 +30,7 @@ namespace hotelMVC
         public void ConfigureServices(IServiceCollection services)
         {   
             string conectionString = Configuration["ConnectionStrings:DefaultConnection"];
-            services.AddDbContext<hotel_managementContext>(options => options.UseSqlServer(conectionString));
+            services.AddDbContext<hotell_managementContext>(options => options.UseSqlServer(conectionString));
 
             services.AddTransient<IhotelRepository, hotellRepository>();
             services.AddTransient<IhotelBusiness, hotelBusiness>();

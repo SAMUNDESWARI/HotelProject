@@ -7,6 +7,11 @@ namespace hotelRepository.Models
 {
     public partial class Hotel
     {
+        public Hotel()
+        {
+            RoomInformations = new HashSet<RoomInformation>();
+        }
+
         public int HotelCode { get; set; }
         public string HotelName { get; set; }
         public string Address { get; set; }
@@ -16,7 +21,8 @@ namespace hotelRepository.Models
         public string PhoneNo { get; set; }
         public decimal? StarRating { get; set; }
         public string ClassName { get; set; }
-        public string Availability { get; set; }
         public string Image { get; set; }
+
+        public virtual ICollection<RoomInformation> RoomInformations { get; set; }
     }
 }
