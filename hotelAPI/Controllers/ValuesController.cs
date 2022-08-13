@@ -21,8 +21,9 @@ namespace hotelAPI.Controllers
         }
 
        
-        [HttpGet("{City}")]
-        public async Task<IActionResult> Getbycity(string City)
+        [HttpGet]
+       
+        public async Task<IActionResult> Getbycity( string City)
         {
             var car = await _hotelBusiness.gethotel(City);
             return Ok(car);
@@ -48,7 +49,13 @@ namespace hotelAPI.Controllers
             var cust = await _hotelBusiness.getallcust();
             return Ok(cust);
         }
-        
+        [HttpGet("datein")]
+        public async Task<IActionResult> getbyavailable(DateTime Check_IN, DateTime Check_Out, string City)
+        {
+            var available = await _hotelBusiness.getbyavailable(Check_IN,Check_Out,City);
+            return Ok(available);
+        }
+         
 
     }
 }
