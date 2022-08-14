@@ -19,5 +19,6 @@ namespace hotelBussiness.Interface
         Task<List<customerVM>> getallcust();
         Task<List<availvm>> getbyavailable(DateTime Check_IN, DateTime Check_Out, string City);
         Task<reservationvm> postreserve(reservationvm reservation);
+        Task<List<hotelInfo>> everyhotel();
     }
 }

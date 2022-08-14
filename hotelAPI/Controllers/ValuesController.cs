@@ -68,5 +68,12 @@ namespace hotelAPI.Controllers
             return Ok(res);
                 
         }
+        [HttpGet("display")]
+        public async Task<IActionResult> everyhotel()
+        {
+            var res = await _hotelBusiness.everyhotel();
+            return Ok(res);
+        }
+       
     }
 }

@@ -18,6 +18,11 @@ namespace hotelRepository
 
         }
 
+        public async Task<List<Hotel>> everyhotel()
+        {
+            return await _context.Hotels.ToListAsync();
+        }
+
         public async Task<List<CustInfo>> getallcust()
         {
             return await _context.CustInfos.ToListAsync();
@@ -123,7 +128,7 @@ namespace hotelRepository
 
             var q = (from h in _context.Hotels
                      join ri in _context.RoomInformations on h.HotelCode equals ri.HotelCode
-                     where ri.Availability == "yes" && h.City==City
+                     where ri.Availability == "yes" && h.City==City 
                      select new information
                      {
 
