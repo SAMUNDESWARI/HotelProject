@@ -56,6 +56,17 @@ namespace hotelAPI.Controllers
             return Ok(available);
         }
          
+        [HttpPost("reserve")]
+        public async Task<IActionResult> postreserve(reservationvm reservation)
+        {
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var res = await _hotelBusiness.postreserve(reservation);
+            return Ok(res);
+                
+        }
     }
 }

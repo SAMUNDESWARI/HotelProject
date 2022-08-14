@@ -19,6 +19,7 @@ namespace hotelUtilities
 
             CreateMap<information, informationvm>().ReverseMap();
             CreateMap<avail, availvm>().ReverseMap();
+            CreateMap<Reservation, reservationvm>().ReverseMap();
         }
        
     }

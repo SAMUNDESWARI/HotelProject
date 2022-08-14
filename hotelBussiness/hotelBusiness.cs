@@ -41,10 +41,10 @@ namespace hotelBussiness
             return _mapper.Map<List<availvm>>(list3);
         }
 
-        public async Task<List<hotelInfo>> gethotel( string City)
+        public async Task<List<informationvm>> gethotel( string City)
         {
            var list1 = await _hotelRepository.gethotel(City);
-            return _mapper.Map<List<hotelInfo>>(list1);
+            return _mapper.Map<List<informationvm>>(list1);
         }
 
         public async Task<customerVM> postcustinfo(customerVM cust)
@@ -53,6 +53,10 @@ namespace hotelBussiness
             return _mapper.Map<customerVM>(result);
         }
 
-      
+        public async Task<reservationvm> postreserve(reservationvm reservation)
+        {
+            var res = await _hotelRepository.postreserve(_mapper.Map<Reservation>(reservation));
+            return _mapper.Map<reservationvm>(res);
+        }
     }
 }

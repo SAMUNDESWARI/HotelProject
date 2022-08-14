@@ -48,7 +48,7 @@ namespace hotelRepository
                        
 
                     });;
-            return await  q.ToListAsync();
+            return await q.ToListAsync();
         }
 
         public async Task<List<avail>> getbyavailable(DateTime check_IN, DateTime check_Out, string city)
@@ -78,57 +78,87 @@ namespace hotelRepository
                           RoomType = ri.RoomType,
                           Price = ri.Price
                       });
-           /* foreach (var item in av)
-            {
-                var change = _context.RoomInformations.Where(x => x.RoomId == item.RoomId).SingleOrDefault();
-                change.Availability = "yes";
-                _context.SaveChanges();
-                   
-            }*/
-           /* var av1 = (from h in _context.Hotels
-                      join r in _context.Reservations on h.HotelCode equals r.HotelCode
-                      join ri in _context.RoomInformations on h.HotelCode equals ri.HotelCode
-                      where r.CheckOut > date
-                      select new avail
-                      {
+            /* foreach (var item in av)
+             {
+                 var change = _context.RoomInformations.Where(x => x.RoomId == item.RoomId).SingleOrDefault();
+                 change.Availability = "yes";
+                 _context.SaveChanges();
 
-                          HotelName = h.HotelName,
-                          Address = h.Address,
-                          Postcode = h.Postcode,
-                          City = h.City,
-                          Country = h.Country,
-                          PhoneNo = h.PhoneNo,
-                          StarRating = h.StarRating,
-                          ClassName = h.ClassName,
-                          Image = h.Image,
+             }*/
+            /* var av1 = (from h in _context.Hotels
+                       join r in _context.Reservations on h.HotelCode equals r.HotelCode
+                       join ri in _context.RoomInformations on h.HotelCode equals ri.HotelCode
+                       where r.CheckOut > date
+                       select new avail
+                       {
 
-                          RoomId = ri.RoomId,
-                          NumberOfRooms = ri.NumberOfRooms,
-                          RoomType = ri.RoomType,
-                          Price = ri.Price
-                      });
-            foreach (var item in av)
-            {
-                var change = _context.RoomInformations.Where(x => x.RoomId == item.RoomId).SingleOrDefault();
-                change.Availability = "no";
-                _context.SaveChanges();
+                           HotelName = h.HotelName,
+                           Address = h.Address,
+                           Postcode = h.Postcode,
+                           City = h.City,
+                           Country = h.Country,
+                           PhoneNo = h.PhoneNo,
+                           StarRating = h.StarRating,
+                           ClassName = h.ClassName,
+                           Image = h.Image,
 
-            }*/
+                           RoomId = ri.RoomId,
+                           NumberOfRooms = ri.NumberOfRooms,
+                           RoomType = ri.RoomType,
+                           Price = ri.Price
+                       });
+             foreach (var item in av)
+             {
+                 var change = _context.RoomInformations.Where(x => x.RoomId == item.RoomId).SingleOrDefault();
+                 change.Availability = "no";
+                 _context.SaveChanges();
+
+             }*/
 
             return await av.ToListAsync();
         }
 
-        public async Task<List<Hotel>> gethotel(string City)
+        public async Task<List<information>> gethotel(string City)
         {
-          
-            return await _context.Hotels.ToListAsync();
-           
+
+            var q = (from h in _context.Hotels
+                     join ri in _context.RoomInformations on h.HotelCode equals ri.HotelCode
+                     where ri.Availability == "yes" && h.City==City
+                     select new information
+                     {
+
+                         HotelName = h.HotelName,
+                         Address = h.Address,
+                         Postcode = h.Postcode,
+                         City = h.City,
+                         Country = h.Country,
+                         PhoneNo = h.PhoneNo,
+                         StarRating = h.StarRating,
+                         ClassName = h.ClassName,
+                         Image = h.Image,
+
+                         RoomId = ri.RoomId,
+                         NumberOfRooms = ri.NumberOfRooms,
+                         RoomType = ri.RoomType,
+                         Price = ri.Price,
+
+
+                     }); ;
+            return await q.ToListAsync();
+
         }
 
         public async Task<CustInfo> postcustinfo(CustInfo cust)
         {
             var result = await _context.CustInfos.AddAsync(cust);
            await _context.SaveChangesAsync();
+            return result.Entity;
+        }
+
+        public async Task<Reservation> postreserve(Reservation reservation)
+        {
+            var result = await _context.Reservations.AddAsync(reservation);
+            await _context.SaveChangesAsync();
             return result.Entity;
         }
     }
