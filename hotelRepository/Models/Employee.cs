@@ -16,5 +16,7 @@ namespace hotelRepository.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public int? HotelCode { get; set; }
+
+        public virtual Hotel HotelCodeNavigation { get; set; }
     }
 }

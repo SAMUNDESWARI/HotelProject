@@ -74,6 +74,26 @@ namespace hotelAPI.Controllers
             var res = await _hotelBusiness.everyhotel();
             return Ok(res);
         }
+        [HttpGet("AvailableHotel")]
+        public IActionResult getbyavailablehotel(DateTime check_IN, DateTime check_Out, string city)
+        {
+            var result = _hotelBusiness.getbyavailablehotel(check_IN, check_Out, city);
+            return Ok(result);
+        }
+        [HttpGet("hotelcode")]
+        public IActionResult getbyhotelcode(int hotelcode)
+        {
+            var result = _hotelBusiness.getbyhotelcode(hotelcode);
+            return Ok(result);
+        }
+        [HttpPost("summary")]
        
+            
+        public IActionResult postsummary(summaryvm detail)
+        {
+            bool result = _hotelBusiness.postsummary(detail);
+            return Ok(result);
+        }
+            
     }
 }

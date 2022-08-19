@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace hotelRepository.Models
+namespace hotelModels
 {
-    public partial class Hotel
+   public class hotelRoomVM
     {
-        public Hotel()
-        {
-            Employees = new HashSet<Employee>();
-            RoomInformations = new HashSet<RoomInformation>();
-        }
-
         public int HotelCode { get; set; }
         public string HotelName { get; set; }
         public string Address { get; set; }
@@ -24,7 +19,10 @@ namespace hotelRepository.Models
         public string ClassName { get; set; }
         public string Image { get; set; }
 
-        public virtual ICollection<Employee> Employees { get; set; }
-        public virtual ICollection<RoomInformation> RoomInformations { get; set; }
+        public int RoomId { get; set; }
+        public int? NumberOfRooms { get; set; }
+        public string RoomType { get; set; }
+        public decimal? Price { get; set; }
+        public string Availability { get; set; }
     }
 }

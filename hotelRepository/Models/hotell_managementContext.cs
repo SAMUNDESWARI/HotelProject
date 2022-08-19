@@ -28,7 +28,7 @@ namespace hotelRepository.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source =localhost;Initial Catalog=hotell_management; Integrated Security=true");
+                optionsBuilder.UseSqlServer("Data Source =(localdb)\\MSSQLLocalDB;Initial Catalog=hotell_management;Integrated Security=true");
             }
         }
 
@@ -37,7 +37,7 @@ namespace hotelRepository.Models
             modelBuilder.Entity<CustInfo>(entity =>
             {
                 entity.HasKey(e => e.CustomerId)
-                    .HasName("PK__Cust_Inf__CD64CFDD2C9B4BC9");
+                    .HasName("PK__Cust_Inf__CD64CFDDE7AA7CE5");
 
                 entity.ToTable("Cust_Info");
 
@@ -100,12 +100,17 @@ namespace hotelRepository.Models
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("username");
+
+                entity.HasOne(d => d.HotelCodeNavigation)
+                    .WithMany(p => p.Employees)
+                    .HasForeignKey(d => d.HotelCode)
+                    .HasConstraintName("FK_Employees_Hotel");
             });
 
             modelBuilder.Entity<Hotel>(entity =>
             {
                 entity.HasKey(e => e.HotelCode)
-                    .HasName("PK__Hotel__175CAD596527B1AF");
+                    .HasName("PK__Hotel__175CAD5972077EEB");
 
                 entity.ToTable("Hotel");
 
@@ -147,9 +152,7 @@ namespace hotelRepository.Models
             {
                 entity.ToTable("Reservation");
 
-                entity.Property(e => e.ReservationId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("reservation_ID");
+                entity.Property(e => e.ReservationId).HasColumnName("reservation_ID");
 
                 entity.Property(e => e.Amount).HasColumnType("money");
 
@@ -163,19 +166,13 @@ namespace hotelRepository.Models
 
                 entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
 
-                entity.Property(e => e.DateRange).HasColumnName("date_range");
-
-                entity.Property(e => e.ReservationDate)
-                    .HasColumnType("date")
-                    .HasColumnName("reservation_date");
-
                 entity.Property(e => e.RoomId).HasColumnName("room_ID");
             });
 
             modelBuilder.Entity<RoomInformation>(entity =>
             {
                 entity.HasKey(e => e.RoomId)
-                    .HasName("PK__Room_Inf__19645EB22F90509F");
+                    .HasName("PK__Room_Inf__19645EB2CC597D38");
 
                 entity.ToTable("Room_Information");
 

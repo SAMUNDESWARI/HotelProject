@@ -64,5 +64,23 @@ namespace hotelBussiness
             var res = await _hotelRepository.postreserve(_mapper.Map<Reservation>(reservation));
             return _mapper.Map<reservationvm>(res);
         }
+
+        public List<hotelRoomVM> getbyavailablehotel(DateTime check_IN, DateTime check_Out, string city)
+        {
+            var result = _hotelRepository.getbyavailablehotel(check_IN, check_Out, city);
+            return _mapper.Map<List<hotelRoomVM>>(result);
+
+        }
+
+        public List<hotelRoomVM> getbyhotelcode(int hotelcode)
+        {
+            var list1 =  _hotelRepository.getbyhotelcode(hotelcode);
+            return _mapper.Map<List<hotelRoomVM>>(list1);
+        }
+        public bool postsummary(summaryvm detail)
+        {
+            bool res = _hotelRepository.postsummary(_mapper.Map<summary>(detail));
+            return res;
+        }
     }
 }
